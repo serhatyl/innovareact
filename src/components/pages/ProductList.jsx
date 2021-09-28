@@ -3,8 +3,12 @@ import { useParams } from 'react-router'
 import { Button, Icon, Menu, Table } from 'semantic-ui-react'
 import ProductService from '../../services/ProductService'
 import {toast} from "react-toastify"
+import {useDispatch} from "react-redux"
+import { addToCart } from '../../store/actions/cartActions'
 
 function ProductList() {
+
+    const dispatch = useDispatch()
 
     const [products, setProducts] = useState([])
     let { categoryId } = useParams()
@@ -28,7 +32,8 @@ function ProductList() {
     }, [categoryId])
 
     const handAddToCart=(product)=>{
-        toast.success("Sepete eklendi")
+        dispatch(addToCart(product))
+        toast.success(`${product.name} Sepete eklendi` )
     }
     return (
         <div>

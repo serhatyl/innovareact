@@ -15,7 +15,7 @@ export default function cartReducer(state = intialState,{type,payload}) {
             }else{
                 return {
                     ...state,
-                    cartItems:[...cartItems,{quantity:1,product:payload}]
+                    cartItems:[...state.cartItems,{quantity:1,product:payload}]
                 }
             }
     
