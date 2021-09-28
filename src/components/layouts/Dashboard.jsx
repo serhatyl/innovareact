@@ -1,5 +1,8 @@
 import React from 'react'
+import { Route } from 'react-router'
+import { ToastContainer } from 'react-toastify'
 import { Grid } from 'semantic-ui-react'
+import ProductDetail from '../pages/ProductDetail'
 import ProductList from '../pages/ProductList'
 import Categories from './Categories'
 import Navi from './Navi'
@@ -7,6 +10,7 @@ import Navi from './Navi'
 function Dashboard() {
     return (
         <div>
+            <ToastContainer position="bottom-right"/>
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={16}>
@@ -18,7 +22,10 @@ function Dashboard() {
                         <Categories></Categories>
                     </Grid.Column>
                     <Grid.Column width={12}>
-                        <ProductList></ProductList>
+                        <Route exact path="/" component={ProductList}/>
+                        <Route exact path="/products" component={ProductList}/>
+                        <Route exact path="/products/:categoryId" component={ProductList}/>
+                        <Route path="/productdetail/:productId" component={ProductDetail}/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

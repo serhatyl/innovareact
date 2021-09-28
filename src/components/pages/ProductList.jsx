@@ -1,37 +1,61 @@
-import React, { useState,useEffect } from 'react'
-import { Icon, Menu, Table } from 'semantic-ui-react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
+import { Button, Icon, Menu, Table } from 'semantic-ui-react'
 import ProductService from '../../services/ProductService'
+import {toast} from "react-toastify"
 
 function ProductList() {
 
     const [products, setProducts] = useState([])
-    
-    useEffect(()=>{
-        let productService = new ProductService();
+    let { categoryId } = useParams()
 
-        productService.getProducts().then(response=>{
-            setProducts(response.data)
-        }).catch(error=>{
-            console.log(error)
-        })
-    },[])
+    useEffect(() => {
+        let productService = new ProductService();
+        if (categoryId) {
+            productService.getProductsByCategoryId(categoryId).then(response => {
+                setProducts(response.data)
+            }).catch(error => {
+                console.log(error)
+            })
+        } else {
+            productService.getProducts().then(response => {
+                setProducts(response.data)
+            }).catch(error => {
+                console.log(error)
+            })
+        }
+
+    }, [categoryId])
+
+    const handAddToCart=(product)=>{
+        toast.success("Sepete eklendi")
+    }
     return (
         <div>
             <Table celled>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Header</Table.HeaderCell>
-                        <Table.HeaderCell>Header</Table.HeaderCell>
-                        <Table.HeaderCell>Header</Table.HeaderCell>
+                        <Table.HeaderCell>#</Table.HeaderCell>
+                        <Table.HeaderCell>Ürün adı</Table.HeaderCell>
+                        <Table.HeaderCell>Fiyatı</Table.HeaderCell>
+                        <Table.HeaderCell>Stok adedi</Table.HeaderCell>
+                        <Table.HeaderCell>Açıklama</Table.HeaderCell>
+                        <Table.HeaderCell></Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
                     {
                         products.map(product => (
-                            <Table.Row>
+                            <Table.Row key={product.id}>
                                 <Table.Cell>{product.id}</Table.Cell>
                                 <Table.Cell>{product.name}</Table.Cell>
+                                <Table.Cell>{product.unitPrice}</Table.Cell>
+                                <Table.Cell>{product.unitsInStock}</Table.Cell>
+                                <Table.Cell>{product.quantityPerUnit}</Table.Cell>
+                                <Table.Cell>
+                                    <Button primary onClick={()=>handAddToCart(product)}>Sepete ekle</Button>
+                                </Table.Cell>
                             </Table.Row>
                         ))
                     }
