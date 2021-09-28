@@ -1,8 +1,9 @@
-import { ADD_TO_CART } from "../actions/cartActions";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cartActions";
 import { cartItems } from "../initialStates/cartItems";
 
 const intialState = {
-    cartItems:cartItems
+    cartItems:cartItems,
+    x:1
 }
 
 export default function cartReducer(state = intialState,{type,payload}) {
@@ -18,10 +19,13 @@ export default function cartReducer(state = intialState,{type,payload}) {
                     cartItems:[...state.cartItems,{quantity:1,product:payload}]
                 }
             }
+        case REMOVE_FROM_CART:
+            return {
+                ...state,
+                cartItems:state.cartItems.filter(c=>c.product.id!==payload.id)
+            }
     
         default:
            return state;
     }
 }
-
-//immutablity

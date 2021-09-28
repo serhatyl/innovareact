@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 function CartSummary() {
 
-    const { cartItems } = useSelector(state => state.cart)
+    const { cartItems,x } = useSelector(state => state.cart)
 
     return (
         <div>
@@ -24,7 +24,7 @@ function CartSummary() {
                             ))
                         }
                         <Dropdown.Divider />
-                        <Dropdown.Item as={NavLink} to="/cart">Sepete git</Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/cart">Sepete git {x}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             }
