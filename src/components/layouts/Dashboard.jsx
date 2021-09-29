@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import { Grid } from 'semantic-ui-react'
 import CartDetail from '../pages/CartDetail'
 import ProductDetail from '../pages/ProductDetail'
-import ProductList from '../pages/ProductList'
+import ProductList2 from '../pages/ProductList2'
 import Categories from './Categories'
 import Navi from './Navi'
 
@@ -23,9 +23,9 @@ function Dashboard() {
                         <Categories></Categories>
                     </Grid.Column>
                     <Grid.Column width={12}>
-                        <Route exact path="/" component={ProductList}/>
-                        <Route exact path="/products" component={ProductList}/>
-                        <Route exact path="/products/:categoryId" component={ProductList}/>
+                        <Route exact path="/" component={ProductList2}/>
+                        <Route exact path="/products" component={ProductList2}/>
+                        <Route exact path="/products/:categoryId" component={ProductList2}/>
                         <Route path="/productdetail/:productId" component={ProductDetail}/>
                         <Route path="/cart" component={CartDetail}/>
                     </Grid.Column>
